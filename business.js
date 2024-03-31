@@ -1,4 +1,4 @@
-const persistence = require('./mongodb');
+const persistence = require('./persistence');
 const crypto = require('crypto');
 
 async function attemptLogin(username, password) {
