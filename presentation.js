@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const business = require("./business");
 const cookieParser = require("cookie-parser");
-
 const app = express();
 const templatePath = path.join(__dirname, '../templates');
 
