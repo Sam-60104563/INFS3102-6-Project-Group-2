@@ -11,25 +11,25 @@ async function connectDatabase() {
     }
 }
 
-async function getMemberDetails(user) {
+async function getUserDetails(user) {
     await connectDatabase();
-    const user = db.collection('member');
-    const result = await memberCollection.findOne({ membername: username });
+    let  users = db.collection('users');
+    let  result = await users.findOne({ username: user });
     return result;
 }
-
+/*
 async function getEmailDetails(email) {
     await connectDatabase();
     const memberCollection = db.collection('member');
     const result = await memberCollection.findOne({ email: email });
     return result;
 }
-
-async function updateMemberEmail(email, newData) {
+*/
+async function updateUserDetails(user, newData) {
     await connectDatabase();
-    const memberCollection = db.collection('member');
-    const result = await memberCollection.updateOne({ email: email }, { $set: newData });
-    return result.modifiedCount > 0;
+    let users = db.collection('users');
+    let result = await users.updateOne({username: username},{password: password},{ email: email }, { $set: newData });
+    console.log(result);
 }
 
 async function startSession(sessionData) {
@@ -163,7 +163,7 @@ async function newMember(newUserData) {
 }
 
 module.exports = {
-    getMemberDetails,
+    getUserDetails,
     getEmailDetails,
     updateMemberEmail,
     startSession,
