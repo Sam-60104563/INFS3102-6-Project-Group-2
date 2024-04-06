@@ -4,6 +4,7 @@ let client = undefined;
 let db = undefined;
 let users = undefined;
 let session = undefined;
+let station = undefined;
 
 async function connectDatabase() {
     if (!client) {
@@ -12,7 +13,13 @@ async function connectDatabase() {
         db = client.db('ProjectWEB2');
         users = db.collection('UserAccounts');
         session = db.collection('SessionData');
+        station = db.collection('FeedingStations');
     }
+}
+
+async function createUserAccount(userData) {
+    await connectDatabase();
+    await users.insertOne(userData);
 }
 
 async function getUserDetails(username) {
@@ -40,6 +47,29 @@ async function getSessionData(key) {
 async function deleteSession(key) {
     await connectDatabase();
     await session.deleteOne({ SessionKey: key });
+}
+
+async function getStationData(stationId) {
+    await connectDatabase();
+    let result = await station.findOne({ StationID: stationId });
+    return result;
+}
+
+
+async function createStation(stationData) {
+    await connectDatabase();
+    await station.insertOne(stationData);
+}
+
+async function updateStation(stationId, newData) {
+    await connectDatabase();
+    await station.updateOne({ StationID: stationId }, { $set: newData });
+
+}
+
+async function deleteStation(stationId) {
+    await connectDatabase();
+    await station.deleteOne({ StationID: stationId });
 }
 
 /*
