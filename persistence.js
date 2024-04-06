@@ -25,10 +25,21 @@ async function getUserDetails(username) {
 async function saveSession(uuid, expiry, data) {
     await connectDatabase();
     await session.insertOne({ 
-        key: uuid,
+        SessionKey: uuid,
         expiry: expiry,
         data: data 
     });
+}
+
+async function getSessionData(key) {
+    await connectDatabase();
+    let result = await session.findOne({ SessionKey: key });
+    return result;
+}
+
+async function deleteSession(key) {
+    await connectDatabase();
+    await session.deleteOne({ SessionKey: key });
 }
 
 /*
