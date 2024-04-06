@@ -2,21 +2,35 @@ const mongodb = require('mongodb');
 
 let client = undefined;
 let db = undefined;
+let users = undefined;
+let session = undefined;
 
 async function connectDatabase() {
     if (!client) {
         client = new mongodb.MongoClient('mongodb+srv://60105641:Anna34@cluster0.rcprbyb.mongodb.net/');
         await client.connect();
-        db = client.db('ProjectW2');
+        db = client.db('ProjectWEB2');
+        users = db.collection('UserAccounts');
+        session = db.collection('SessionData');
     }
 }
 
-async function getUserDetails(user) {
+async function getUserDetails(username) {
     await connectDatabase();
-    let  users = db.collection('users');
-    let  result = await users.findOne({ username: user });
+    let result = await users.findOne({ UserName: username });
     return result;
+
 }
+
+async function saveSession(uuid, expiry, data) {
+    await connectDatabase();
+    await session.insertOne({ 
+        key: uuid,
+        expiry: expiry,
+        data: data 
+    });
+}
+
 /*
 async function getEmailDetails(email) {
     await connectDatabase();
@@ -24,7 +38,7 @@ async function getEmailDetails(email) {
     const result = await memberCollection.findOne({ email: email });
     return result;
 }
-*/
+
 async function updateUserDetails(user, newData) {
     await connectDatabase();
     let users = db.collection('users');
@@ -186,3 +200,4 @@ module.exports = {
     removeStationId,
     newMember
 };
+*/
