@@ -53,6 +53,8 @@ async function registerUser(username, password) {
     }
 }
 
+// this is a change to demonstrate github desktop
+
 module.exports = {
     attemptLogin,
     terminateSession,
