@@ -283,6 +283,7 @@ app.post('/adminHome', async(req,res)=>{
         let stations = await business.getStations()
         if(sess){
             let sid = req.body.stationId
+            let user = await business.getUser(sess.data.UserId)
             let data1 = await business.getRationsDelData(+sid)
             let data2 = await business.getRationsRecData(+sid)
             let FoodArray1 = data1[0]
@@ -296,7 +297,8 @@ app.post('/adminHome', async(req,res)=>{
                 FoodArray2: FoodArray2,
                 WaterArray2: WaterArray2,
                 layout: 'admin',
-                stations: stations
+                stations: stations,
+                details : user
             })
         }
         else{
@@ -689,6 +691,7 @@ app.post('/manage-records', async(req,res) =>{
         if(sess){
             let date = req.body.date
             let station = req.body.stationId
+            let user = await business.getUser(sess.data.UserId)
             let RationsRec = await business.RationsRecbyDate(+station, date)
             let RationsDel = await business.RationsDelbyDate(+station, date)
             let stations = await business.getStations()
@@ -698,7 +701,8 @@ app.post('/manage-records', async(req,res) =>{
                 RationsDel: RationsDel,
                 date: date,
                 name: "Search Records",
-                stations: stations
+                stations: stations,
+                details : user
             })
         }
         else{
@@ -1083,6 +1087,79 @@ app.post('/update-profile-pic', upload.single('file'), async (req, res) => {
         await business.uploadProfilePic(userID, fileName)
         await flash.setFlash(key, "Profile Picture uploaded!")
         res.redirect('/profilea')
+});
+
+
+app.get('/rations-used', async(req,res)=>{
+    let key = req.cookies.session
+    let athuntic = await business.isAuthenticated(key)
+    if (!key ||!athuntic) {
+        let key = await business.startSession({Email:""})
+        await flash.setFlash(key, "Please Login")
+        res.cookie('session', key)
+        res.redirect('/')
+        return
+    }
+    let csrfToken = await business.generateToken(key)
+    let sd = await business.getSessionData(key)
+    let user = await business.getUser(sd.data.UserId)
+    let stations = await business.getStations()
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; 
+    var yyyy = today.getFullYear();
+    
+
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    let msg = await flash.getFlash(key)
+    await flash.deleteFlash(key)
+    res.render('rationsUsed', {
+        csrfToken: csrfToken,
+        details: user,
+        today: today,
+        message: msg,
+        name: "Posts",
+        stations: stations,
+        layout: 'admin'
+    })
+})
+
+
+
+
+
+app.post('/rations-used', async (req, res) => {
+    let food = Number(req.body.food)
+    let water = Number(req.body.water)
+    let stationId = Number(req.body.stationId)
+    const date = req.body.date
+    let key = req.cookies.session
+    let token = await business.getToken(key)
+    if (token != req.body.csrf) {
+        res.status(403)
+        res.send("Invalid CSRF Request")
+
+        return
+    }
+    if(food && water && stationId && date){
+        let sd = await business.getSessionData(key)
+        let userID = sd.data.UserId
+        await business.saveDelivery(userID, food, water, stationId, date)
+        await flash.setFlash(key, "Update uploaded!")
+        res.redirect('/rations-used')
+    }
+    else{
+        await flash.setFlash(key, "Please enter the complete data!")
+        res.redirect('/rations-used')
+    }  
 });
 
 app.listen(8000, () => { console.log("Running")})

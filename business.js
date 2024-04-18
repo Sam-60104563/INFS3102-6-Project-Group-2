@@ -208,6 +208,22 @@ async function saveReport(userID, cats, stationId, date, time, desc, picName){
 }
 
 
+async function saveDelivery(userID, food, water, stationId, date){
+    let data = {
+        UserID: userID,
+        StationID: stationId,
+        Date: date,
+        FoodAmount: food,
+        WaterAmount: water
+    }
+    let station = await persistence.getStation(stationId)
+    await persistence.saveDelivery(data)
+    station.RationLevels.Food -= food
+    station.RationLevels.Water -= water
+    return await persistence.editStation(stationId, station)
+}
+
+
 async function getStations(){
     return await persistence.getStations()
 }
@@ -295,5 +311,5 @@ module.exports = {
       inputData, getRationsDelData, getRationsRecData, getStations,  getStation,
       getUsers, updateUser, RationsRecbyDate, RationsDelbyDate, registerStation,
      emailCheck, modifyCollection, validateResetPasswordKey, updateUserPasswordWithResetKey, removeResetPasswordKey,
-     getPosts, generatePassword, saveReport, getReports, uploadProfilePic
+     getPosts, generatePassword, saveReport, getReports, uploadProfilePic, saveDelivery
 }
