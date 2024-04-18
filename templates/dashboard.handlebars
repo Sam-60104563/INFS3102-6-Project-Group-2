@@ -1,0 +1,88 @@
+<h1>Dashboard</h1>
+<div>
+  <div id="col">
+    <div class="card mb-4">
+      <div class="card-header"><strong>Food Delivery</strong></div>
+      <div class="card-body">
+        <div class="example">
+          <div class="tab-content rounded-bottom">
+            <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
+              <div class="c-chart-wrapper">
+                <canvas id="myChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="co2">
+    <div class="card mb-4">
+      <div class="card-header"><strong>Daily Record</strong></div>
+      <div class="card-body">
+          <div class="tab-content rounded-bottom">
+            <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
+              <div class="c-chart-wrapper">
+                <canvas id="myChart2"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx1 = document.getElementById('myChart');
+  
+
+  new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: ["January", "February", "March", "April","May", "June", "July", "August","September", "October", "November", "December"],
+      datasets: [{
+        label: 'water',
+        data: [{{FoodArray1}}],
+        borderWidth: 1
+      },{
+        label: 'Food',
+        data: [{{WaterArray1}}],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  const ctx2= document.getElementById('myChart2');
+
+  new Chart(ctx2, {
+    type: 'line',
+    
+    data: {
+      labels: ["January", "February", "March", "April","May", "June", "July", "August","September", "October", "November", "December"],
+      datasets: [{
+        label: 'water',
+        data: [{{FoodArray2}}],
+        borderWidth: 1
+      },{
+        label: 'food',
+        data: [{{WaterArray2}}],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>

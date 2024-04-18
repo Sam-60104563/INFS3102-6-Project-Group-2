@@ -1,0 +1,30 @@
+<main>
+    <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card-group d-block d-md-flex row">
+              <div class="card col-md-7 p-4 mb-0">
+                <div class="card-body">
+                  <p class="text-medium-emphasis">
+                    {{#if message}}
+                        {{message}}
+                    {{/if}}
+                  </p>
+                  <br>
+                    <h3>Welcome {{member.Username}}</h3>
+                    <b>Station ID: </b> {{station.StationID}}<br>
+                    <b>Location: </b> {{station.StationLocation}}<br>
+                    <table>
+                        <tr><td>Records</td><td>Ration Levels</td><td>Rations Recieved</td></tr>
+                        <tr><td>Water</td><td>{{station.RationLevels.Food}}</td><td>{{Food}}</td></tr>
+                        <tr><td>Food</td><td>{{station.RationLevels.Water}}</td><td>{{Water}}</td></tr>
+                    </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</main>

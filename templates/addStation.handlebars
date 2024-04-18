@@ -1,0 +1,37 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card-group d-block d-md-flex row">
+            <div class="card col-md-7 p-4 mb-0">
+              <div class="card-body">
+                <h2>Add a new Station</h2>
+                <p class="text-medium-emphasis">
+                  {{#if message}}
+                      {{message}}
+                  {{/if}}
+                </p>
+                <br>
+                <form method="post" action="/new-station">
+                      <input type="hidden" name="csrf" value={{csrfToken}}>
+                      Station Name
+                      <div class="input-group mb-3">
+                          <input class="form-control" name="name">
+                      </div>
+                      location
+                      <div class="input-group mb-3">
+                          <input class="form-control" name="location">
+                      </div>
+                      <div class="row">
+                          <div class="col-6">
+                              <input type="submit" class="btn btn-primary px-4">
+                          </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

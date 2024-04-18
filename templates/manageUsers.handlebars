@@ -1,0 +1,16 @@
+<main>
+    <h2>MEMBER LIST</h2>
+    <p class="text-medium-emphasis">
+        {{#if message}}
+            {{message}}
+        {{/if}}
+    </p>
+    <table>
+        <tr><th>Member ID</th><th>Name</th><th>Email</th><th>Delete Member</th></tr>
+        {{#each members}}
+            <tr><td>{{this.UserId}}</td><td>{{this.Username}}</td><td>{{this.Email}}</td><td><a href="/delete-user/{{this.UserId}}">Delete Member</a></td></tr>
+        {{/each}}
+    </table>
+    <br>
+</main>
+

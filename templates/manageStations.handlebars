@@ -1,0 +1,17 @@
+<main>
+    <h2>STATIONS LIST</h2>
+    <p class="text-medium-emphasis">
+        {{#if message}}
+            {{message}}
+        {{/if}}
+    </p>
+    <table>
+        <tr><th>Station ID</th><th>Location</th><th>Food Level</th><th>Water Level</th><th>Delete Station</th></tr>
+        {{#each stations}}
+            <tr><td>{{this.StationID}}</td><td>{{this.StationLocation}}</td><td>{{this.RationLevels.Food}} Kilograms</td><td>{{this.RationLevels.Water}} Litres</td><td><a href="/delete-station/{{this.StationID}}">Delete Station</a></td></tr>
+        {{/each}}
+    </table>
+    <br>
+    <a href="/registerStation" class="btn btn-block btn-success">Add Station</a>
+</main>
+

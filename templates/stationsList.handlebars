@@ -1,0 +1,11 @@
+<main>
+    <h2>STATIONS LIST</h2>
+
+    <table>
+        <tr><th>Location</th><th>Water-Liters</th><th>Food-KG</th><th>Remarks</th></tr>
+        {{#each stations}}
+            <tr><td>{{this.StationLocation}}</td><td>{{this.RationLevels.Water}}</td><td>{{this.RationLevels.Food}}</td><td><m>{{#if this.message}}{{this.message}}{{/if}}</m></td></tr>
+        {{/each}}
+    </table>
+</main>
+

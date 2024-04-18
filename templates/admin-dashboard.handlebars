@@ -1,0 +1,102 @@
+
+<div>
+    <h3>SELECT STATION</h3>
+        <form method ="post">                                           
+            Location
+            <div class="input-group mb-3">
+                <select class="form-control" name="stationId">
+                    {{#each stations}}
+                        <option value="{{this.StationID}}">{{this.StationID}}- {{this.StationLocation}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="c2">   
+                <input type="submit" value= 'Search'  class="btn btn-primary px-4">
+            </div>   
+        </form>
+  <div id="col">
+    <div class="card mb-4">
+      <div class="card-header"><strong>Rations Used</strong></div>
+      <div class="card-body">
+        <div class="example">
+          <div class="tab-content rounded-bottom">
+            <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
+              <div class="c-chart-wrapper">
+                <canvas id="myChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="co2">
+    <div class="card mb-4">
+      <div class="card-header"><strong>Rations Recieved</strong></div>
+      <div class="card-body">
+          <div class="tab-content rounded-bottom">
+            <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
+              <div class="c-chart-wrapper">
+                <canvas id="myChart2"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx1 = document.getElementById('myChart');
+  
+
+  new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: ["January", "February", "March", "April","May", "June", "July", "August","September", "October", "November", "December"],
+      datasets: [{
+        label: 'Food',
+        data: [{{FoodArray1}}],
+        borderWidth: 1
+      },{
+        label: 'Water',
+        data: [{{WaterArray1}}],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  const ctx2= document.getElementById('myChart2');
+
+  new Chart(ctx2, {
+    type: 'line',
+    
+    data: {
+      labels: ["January", "February", "March", "April","May", "June", "July", "August","September", "October", "November", "December"],
+      datasets: [{
+        label: 'Food',
+        data: [{{FoodArray2}}],
+        borderWidth: 1
+      },{
+        label: 'Water',
+        data: [{{WaterArray2}}],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>

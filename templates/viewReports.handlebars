@@ -1,0 +1,32 @@
+<main>
+    <h2>View Reports</h2>
+    <p class="text-medium-emphasis">
+    {{#if message}}
+        {{message}}
+    {{/if}}
+    </p>
+    <br>
+    {{#each reports}}
+
+            <div class="row justify-content-center">
+
+                    <div class="card-group d-block d-md-flex row">
+                        <div class="card col-md-7 p-4 mb-0">
+                            <div class="card-body">
+                                <b>Username :</b> {{this.Username}}<br>
+                                <b>Date :</b> {{this.Date}}<br>
+                                    <b>Station Location :</b> {{this.StationName}}<br>
+                                    <b>Number of Cats Seen :</b> {{this.NumberOfCats}}<br>
+                                        <b>Report Description :</b> {{this.Description}}<br>
+                                {{#if this.PictureName}}<br>
+                                <b>Picture : <br></b>
+                                <img src="/images/{{this.PictureName}}">
+                                {{/if}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    {{/each}}
+</main>

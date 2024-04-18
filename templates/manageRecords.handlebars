@@ -1,0 +1,47 @@
+
+<div class="card mb-4">
+        <div class="card-body">
+            <div class="example">
+            <div class="tab-content rounded-bottom">
+                <h2>SEARCH FOR RECORDS</h2>
+                <form method ="post">                                           
+                    Date
+                    <div class="input-group mb-3">
+                        <input class="form-control" name="date" type="date" max="{{today}}">
+                    </div>
+                    Location
+                    <div class="input-group mb-3">
+                        <select class="form-control" name="stationId">
+                            {{#each stations}}
+                                <option value="{{this.StationID}}">{{this.StationID}}- {{this.StationLocation}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="c2">   
+                        <input type="submit" value= 'Search'  class="btn btn-primary px-4">
+                    </div>   
+                </form>
+        <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
+        <div class="c-chart-wrapper">
+            <p>Records for the date: {{date}}</p>
+            <br>
+            <h5>Rations Recieved</h5>
+            <table>
+                <tr><th>Date</th><th>Food Recieved</th><th>Water Recieved</th></tr>
+                {{#each RationsRec}}
+                <tr><td>{{this.Date}}</td><td>{{this.FoodAmount}} KG</td><td>{{this.WaterAmount}} Litres</td></tr>
+                {{/each}}
+            </table><br>
+            <h5>Rations Used</h5>
+            <table>
+                <tr><th>Date</th><th>Food Used</th><th>Water Used</th></tr>
+                {{#each RationsDel}}
+                <tr><td>{{this.Date}}</td><td>{{this.FoodAmount}} KG</td><td>{{this.WaterAmount}} Litres</td></tr>
+                {{/each}}
+            </table>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>

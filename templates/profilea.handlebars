@@ -1,0 +1,28 @@
+    <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="card-group d-block d-md-flex row">
+              <div class="card col-md-7 p-4 mb-0">
+                <div class="card-body">
+                  <h2>User Profile</h2>
+                  <p class="text-medium-emphasis">
+                    {{#if message}}
+                        {{message}}
+                    {{/if}}
+                  </p>
+                  <br>
+                  <b>Name: </b> {{details.Username}}<br>
+                  <b>Email: </b> {{details.Email}}<br>
+                  <b>User Type: </b> {{details.data.AccountType}}<br>
+                  <a href="/update-profilea">Update Profile</a><br>
+                  <a href="/update-passworda">Update Password</a><br>
+                  <a href="/update-profile-pic">Update Profile Picture</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

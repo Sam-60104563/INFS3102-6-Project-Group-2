@@ -1,0 +1,66 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card-group d-block d-md-flex row">
+            <div class="card col-md-7 p-4 mb-0">
+              <div class="card-body">
+                <h2>Report</h2>
+                <p class="text-medium-emphasis">
+                  {{#if message}}
+                      {{message}}
+                  {{/if}}
+                </p>
+                <br>
+                <form method="post" action="/reports" enctype="multipart/form-data">
+                      <input type="hidden" name="csrf" value={{csrfToken}}>
+                      <input type = "hidden" class="form-control" name="date" type="date" value="{{today}}">
+                      Location
+                      <div class="input-group mb-3">
+                          <select class="form-control" name="stationId">
+                              {{#each stations}}
+                                  <option value="{{this.StationID}}"> {{this.StationLocation}}</option>
+                              {{/each}}
+                          </select>
+                      </div>
+                      Number of Cats at Station
+                      <div class="input-group mb-3">
+                          <input class="form-control" name="cats">
+                      </div>
+                      Report Description
+                      <div class="input-group mb-3">
+                          <textarea class="form-control" name="desc" placeholder="Add your report"></textarea>
+                      </div>
+                      Picture
+                      <div class="input-group mb-3">
+                          <input class="form-control" type="file" name="file" required>
+                      </div>
+                      <div class="row">
+                          <div class="col-6">
+                              <input type="submit" class="btn btn-primary px-4">
+                          </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+{{!-- <form method="post" action="/daily-sales">
+  <input name="stationId" value="{{details.data.stationId}}" type="hidden"><br>
+  <input name="action" value="sold" type="hidden"><br>
+  Type: <input class="form-control" name="type" placeholder="Type"><br>
+  Amount: <input class="form-control" name="amount" placeholder="Amount in Litres"><br>
+  Date: <input class="form-control" name="date" type="date">
+  <br>
+  <input class="btn btn-primary px-4" type="submit">
+</form> --}}
